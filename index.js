@@ -1,15 +1,58 @@
 const operation = require('./contacts');
-// console.log(operation);
+const { Command } = require('commander');
 
-// operation.listContacts().then(data => {
-//   console.log('listContacts', data);
-// });
+const program = new Command();
 
-// operation.getContactById('6').then(data => console.log(data));
+program
+  .option('-a, --action <type>', 'choose action')
+  .option('-i, --id <type>', 'user id')
+  .option('-n, --name <type>', 'user name')
+  .option('-e, --email <type>', 'user email')
+  .option('-p, --phone <type>', 'user phone');
 
-// operation.removeContact('5');
+program.parse(process.argv);
 
-const obj1 = { name: 'John', phone: '5555555', email: 'John@mail.com' };
-const obj2 = { name: 'Mango', phone: '66666', email: 'mango@mail.com' };
+const argv = program.opts();
 
-operation.addContact(obj2);
+function invokeAction({ action, id, name, email, phone }) {
+  switch (action) {
+    case 'list':
+      operation.listContacts().then(data => {
+        console.table(data);
+      });
+
+      break;
+
+    case 'get':
+      operation.getContactById(id).then(data => console.table(data));
+      break;
+
+    case 'add':
+      operation
+        .addContact(name, phone, email)
+        .then(data => console.table(data));
+      break;
+
+    case 'remove':
+      operation.removeContact(id).then(data => console.table(data));
+      break;
+
+    default:
+      console.warn('\x1B[31m Unknown action type!');
+  }
+}
+
+console.table(argv);
+invokeAction(argv);
+
+// # Получаем и выводим весь список контактов в виде таблицы (console.table)
+// node index.js --action list
+
+// # Получаем контакт по id
+// node index.js --action get --id 5
+
+// # Добавялем контакт
+// node index.js --action add --name Mango --email mango@gmail.com --phone 322-22-22
+
+// # Удаляем контакт
+// node index.js --action remove --id=3
