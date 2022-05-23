@@ -1,0 +1,28 @@
+{
+  "name": "Node-js-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon index",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mark-Y-GIT/Node-js-homework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mark-Y-GIT/Node-js-homework/issues"
+  },
+  "homepage": "https://github.com/Mark-Y-GIT/Node-js-homework#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "nanoid": "^3.3.4"
+  }
+}
